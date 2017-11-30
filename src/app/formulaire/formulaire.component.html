@@ -1,0 +1,34 @@
+<div>
+  <h1>Create patients</h1><br/>
+
+  <span class="input"></span>
+  <input type="text" name="name" placeholder="Full name" #name/>
+
+  <span class="input"></span>
+  <input type="text" name="prenom" placeholder="Prenom" #prenom required />
+
+  <span class="input"></span>
+  <input type="text" name="sexe" placeholder="sexe" #sexe required />
+
+  <span class="input"></span>
+  <input type="text" name="nss" placeholder="numéro de Sécurité Sociale" #nss required />
+
+  <div>
+    <span class="input"></span>
+    <input type="text" name="ville" placeholder="Ville" #ville required />
+
+    <span class="input"></span>
+    <input type="text" name="codePostal" placeholder="code postal" #codePostal required />
+
+    <span class="input"></span>
+    <input type="text" name="rue" placeholder="rue" #rue required />
+
+    <span class="input"></span>
+    <input type="text" name="numero" placeholder="numéro" #numero />
+
+    <span class="input"></span>
+    <input type="text" name="etage" placeholder="étage" #etage />
+  </div>
+
+  <button type="button" name="bouton" (click)="setPatient(name.value, prenom.value, sexe.value, nss.value, ville.value, codePostal.value, rue.value, numero.value, etage.value )">VALIDER</button>
+</div>
