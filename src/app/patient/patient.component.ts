@@ -1,5 +1,7 @@
 import { Input, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PatientInterface } from '../dataInterfaces/patient';
+import {DragDropModule} from "alx-dragdrop";
+
 
 @Component({
   selector: 'app-patient',
@@ -19,6 +21,10 @@ export class PatientComponent implements OnInit {
 
   getNom():string{
     return this.patient.nom.toString();
+  }
+
+  getPatient():PatientInterface{
+    return this.patient;
   }
 
   getPrenom():string{

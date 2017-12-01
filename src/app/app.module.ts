@@ -8,6 +8,8 @@ import { SecretaryComponent } from './secretary/secretary.component';
 import { InfirmierComponent } from './infirmier/infirmier.component';
 import { PatientComponent } from './patient/patient.component';
 import { FormulaireComponent } from './formulaire/formulaire.component';
+import {DragDropModule} from 'alx-dragdrop';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,13 @@ import { FormulaireComponent } from './formulaire/formulaire.component';
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    DragDropModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyD_w1r_07SqTtAphUmK3igqBLjirGtJF24"
+    })
   ],
+
   providers: [CabinetMedicalModuleService],
 
   bootstrap: [AppComponent]

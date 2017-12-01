@@ -3,7 +3,6 @@ import {CabinetMedicalModuleService} from "../cabinet-medical.service"
 import {CabinetInterface} from "../dataInterfaces/cabinet";
 import {InfirmierInterface} from "../dataInterfaces/nurse";
 import {PatientInterface} from "../dataInterfaces/patient";
-import {DragDropModule} from "alx-dragdrop";
 
 
 
@@ -44,6 +43,7 @@ export class SecretaryComponent implements OnInit {
   }
 
   public desaffectPatient (pat : PatientInterface){
+    console.log(pat);
     this.cab.deleteAffectPatient(pat).subscribe(
       response => {
         this.getInfirmiers().forEach( infirmier => {
@@ -64,11 +64,18 @@ export class SecretaryComponent implements OnInit {
         if(this.cabinet.patientsNonAffectés.find( v =>{
           return v.numéroSécuritéSociale == pat.numéroSécuritéSociale;
         })){
+          console.log("NON AFFECTER");
           this.cabinet.patientsNonAffectés.splice(this.cabinet.patientsNonAffectés.indexOf(pat, 0),1);
         }
-        this.getInfirmiers().find( infirmier => {
-          return infirmier.id == inf.id;
-        }).patients.push(pat);
+
+        this.getInfirmiers().forEach(infirmier => {
+          console.log(infirmier.patients.indexOf(pat, 0));
+          if(infirmier.patients.indexOf(pat, 0) != -1){
+            console.log("on splice");
+            infirmier.patients.splice(infirmier.patients.indexOf(pat, 0), 1);
+          }
+        });
+        inf.patients.push(pat);
       }
       ,
       error => {
@@ -77,15 +84,8 @@ export class SecretaryComponent implements OnInit {
     );
   }
 
-  public changeAffectPatient(pat : PatientInterface, inf : InfirmierInterface){
-    this.desaffectPatient(pat);
-    this.affectPatient(inf, pat);
-  }
-
-
-
-
   ngOnInit() {
   }
+
 
 }

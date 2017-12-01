@@ -5,15 +5,29 @@ import {Http, Response} from '@angular/http';
 import {Adresse} from './dataInterfaces/adress';
 import {InfirmierInterface} from './dataInterfaces/nurse';
 import {PatientInterface} from './dataInterfaces/patient';
-import {copyStyles} from "@angular/animations/browser/src/util";
 import {Observable} from "rxjs/Observable";
+
+/** GOOGLE MAP**/
+import {MapsAPILoader} from "@agm/core";
+import {} from '@types/googlemaps';
 
 @Injectable()
 export class CabinetMedicalModuleService {
 
-  constructor( private http : Http ) { }
+  /** GOOGLE MAP**/
+  private Pgapi: Promise<any>; // Indique quand l’API est disponible
+  private geocoder: google.maps.Geocoder;
+  private cab : CabinetInterface;
 
-  getData( url : string ):Promise <CabinetInterface>{
+  constructor(private http: Http, mapsAPILoader: MapsAPILoader) {
+    this.Pgapi = mapsAPILoader.load().then(() => {
+      console.log('google script loaded');
+      this.geocoder = new google.maps.Geocoder();
+    });
+  }
+
+
+    getData( url : string ):Promise <CabinetInterface>{
     return this.http.get(url).toPromise().then((res : Response) =>{
       const parser = new DOMParser();
       const doc = parser.parseFromString(res.text(),"text/xml");
@@ -73,6 +87,8 @@ export class CabinetMedicalModuleService {
 
           }
         });
+        this.cab = cabinet;
+        this.setCoordinate();
 
         return cabinet;
       }
@@ -80,6 +96,17 @@ export class CabinetMedicalModuleService {
     })
   }
 
+  private setCoordinate(){
+    let tab : CabinetInterface[] = [] ;
+    tab.push(this.cab);
+    this.getLatLngFor(tab);
+    this.getLatLngFor(this.cab.infirmiers);
+    this.getLatLngFor(this.cab.patientsNonAffectés);
+
+    this.cab.infirmiers.forEach( inf => {
+      this.getLatLngFor(inf.patients);
+    });
+  }
 
   private getAdressFrom( root : Element ): Adresse {
     let node : Element;
@@ -91,7 +118,6 @@ export class CabinetMedicalModuleService {
       étage:(node = root.querySelector("adresse>étage"))?node.textContent : "",
       lat:(node = root.querySelector("adresse>lat"))?parseInt(node.textContent,10):0,
       lng:(node = root.querySelector("adresse>lng"))?parseInt(node.textContent,10):0
-      //...
     };
   }
 
@@ -124,5 +150,67 @@ export class CabinetMedicalModuleService {
     });
   }
 
+  /** GOOGLE MAP **/
+  private getLatLngFor( adressables : {adresse: Adresse}[] ) {
+    adressables = adressables.slice(); // Copie pour éviter problèmes récursions
+    this.Pgapi.then( () => {
+      if (adressables.length) {
+        const itemWithAdress = adressables.pop();
+        const A = itemWithAdress.adresse;
+        const address = `${A.numéro} ${A.rue}, ${A.codePostal} ${A.ville}`;
+        this.geocoder.geocode({address}, (res, status) => {
+          // console.log(itemWithAdress, "=>", status, res);
+          if (status === google.maps.GeocoderStatus.OK) {
+            const place = res[0].geometry.location;
+            itemWithAdress.adresse.lat = place.lat();
+            itemWithAdress.adresse.lng = place.lng();
+            console.log( itemWithAdress.adresse );
+          }
+          switch (status) {
+            case google.maps.GeocoderStatus.OVER_QUERY_LIMIT:
+              adressables.push(itemWithAdress);
+              this.getLatLngFor(adressables);
+              break;
+            default:
+              this.getLatLngFor(adressables);
+          }
+        });
+      }
+    });
+  }
+
+  /*public getLat() : number {
+    return this.cab.adresse.lat;
+  }*/
+
+  private getAllPatLinkToInf() : PatientInterface[]{
+    let tab : PatientInterface[] = [];
+    this.cab.infirmiers.forEach( inf => {
+      inf.patients.forEach( pat => {
+        tab.push(pat);
+      })
+    });
+    return tab;
+  }
+
+  getLat()  {
+    return this.cab  ?  this.cab.adresse.lat  :    0;
+  }
+  getLng()  {
+    return this.cab  ?  this.cab.adresse.lng  :    0;
+  }
+
+  getInf() : InfirmierInterface[] {
+    return this.cab  ?  this.cab.infirmiers  :   [];
+  }
+
+  getPatNa() : PatientInterface[]{
+    return this.cab  ?  this.cab.patientsNonAffectés  :   [];
+  }
+
+  getPat() : PatientInterface[]{
+
+    return this.cab ? this.getAllPatLinkToInf() : [];
+  }
 }
 

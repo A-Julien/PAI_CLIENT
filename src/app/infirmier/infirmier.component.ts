@@ -1,6 +1,7 @@
 import { Input, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {InfirmierInterface} from '../dataInterfaces/nurse';
 import {PatientInterface} from "../dataInterfaces/patient";
+import {SecretaryComponent} from "../secretary/secretary.component"
 
 @Component({
   selector: 'app-infirmier',
@@ -12,7 +13,7 @@ import {PatientInterface} from "../dataInterfaces/patient";
 export class InfirmierComponent implements OnInit {
   @Input("data") infirmier: InfirmierInterface;
 
-  constructor() { }
+  constructor(private secretary : SecretaryComponent) { }
 
   ngOnInit() {
   }
@@ -28,4 +29,10 @@ export class InfirmierComponent implements OnInit {
   getPatients():PatientInterface[]{
     return this.infirmier.patients;
   }
+
+  re_affectPat(patient : PatientInterface){
+    this.secretary.affectPatient(this.infirmier, patient);
+  }
+
+
 }
