@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
-import {promise} from "selenium-webdriver";
+import {sexeEnum} from "./dataInterfaces/sexe";
 import {CabinetInterface} from "./dataInterfaces/cabinet";
 import {Http, Response} from '@angular/http';
 import {Adresse} from './dataInterfaces/adress';
 import {InfirmierInterface} from './dataInterfaces/nurse';
 import {PatientInterface} from './dataInterfaces/patient';
 import {copyStyles} from "@angular/animations/browser/src/util";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class CabinetMedicalModuleService {
 
   constructor( private http : Http ) { }
-
-  public getHttp() : Http{
-    console.log("il ce fais tard");
-    return this.http;
-  }
 
   getData( url : string ):Promise <CabinetInterface>{
     return this.http.get(url).toPromise().then((res : Response) =>{
@@ -99,6 +95,34 @@ export class CabinetMedicalModuleService {
     };
   }
 
+  public newPatient(patient: PatientInterface) : Observable<Response> {
+    return this.http.post("/addPatient", {
+      patientName: patient.nom,
+      patientForname: patient.prénom,
+      patientNumber: patient.numéroSécuritéSociale,
+      patientSex: patient.sexe === sexeEnum.M ? "M" : "F",
+      patientBirthday: "AAAA-MM-JJ",
+      patientFloor: patient.adresse.étage,
+      patientStreetNumber: patient.adresse.numéro,
+      patientStreet: patient.adresse.rue,
+      patientPostalCode: patient.adresse.codePostal,
+      patientCity: patient.adresse.ville
+    });
+  }
+
+  public injectPatient(infirmier: InfirmierInterface, patient : PatientInterface) : Observable<Response>{
+    return this.http.post( "/affectation", {
+      infirmier: infirmier.id,
+      patient: patient.numéroSécuritéSociale
+    });
+  }
+
+  public deleteAffectPatient(patient : PatientInterface) : Observable<Response> {
+    return this.http.post("/affectation", {
+      infirmier: "none",
+      patient: patient.numéroSécuritéSociale
+    });
+  }
 
 }
 

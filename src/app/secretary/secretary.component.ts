@@ -3,6 +3,9 @@ import {CabinetMedicalModuleService} from "../cabinet-medical.service"
 import {CabinetInterface} from "../dataInterfaces/cabinet";
 import {InfirmierInterface} from "../dataInterfaces/nurse";
 import {PatientInterface} from "../dataInterfaces/patient";
+import {DragDropModule} from "alx-dragdrop";
+
+
 
 
 
@@ -20,7 +23,7 @@ export class SecretaryComponent implements OnInit {
 
   };
 
-  constructor(cabinetService : CabinetMedicalModuleService) {
+  constructor(private cab : CabinetMedicalModuleService, cabinetService : CabinetMedicalModuleService) {
     cabinetService.getData("/data/cabinetInfirmier.xml").then(data => this.cabinet = data);
   }
 
@@ -33,17 +36,54 @@ export class SecretaryComponent implements OnInit {
   }
 
   public addPatient(pat : PatientInterface):boolean{
-    /*
-    if(this.cabinet.patientsNonAffectés.indexOf(pat)){
-      this.cabinet.patientsNonAffectés.push(pat);
-      console.log("addPatieny :");
-      console.log( this.cabinet.patientsNonAffectés);
-      return true;
-    }*/
+    if(this.cabinet.patientsNonAffectés.find( value => {
+      return value.numéroSécuritéSociale == pat.numéroSécuritéSociale;
+    })){return false}
     this.cabinet.patientsNonAffectés.push(pat);
-    //console.log( this.cabinet.patientsNonAffectés);
-    return false;
+    return true;
   }
+
+  public desaffectPatient (pat : PatientInterface){
+    this.cab.deleteAffectPatient(pat).subscribe(
+      response => {
+        this.getInfirmiers().forEach( infirmier => {
+          infirmier.patients.splice(infirmier.patients.indexOf(pat, 0), 1);
+        });
+        this.cabinet.patientsNonAffectés.push(pat);
+      }
+      ,
+      error => {
+        console.log("ERR-POST");
+      }
+    );
+  }
+
+  public affectPatient(inf : InfirmierInterface, pat : PatientInterface){
+    this.cab.injectPatient(inf, pat).subscribe(
+      response => {
+        if(this.cabinet.patientsNonAffectés.find( v =>{
+          return v.numéroSécuritéSociale == pat.numéroSécuritéSociale;
+        })){
+          this.cabinet.patientsNonAffectés.splice(this.cabinet.patientsNonAffectés.indexOf(pat, 0),1);
+        }
+        this.getInfirmiers().find( infirmier => {
+          return infirmier.id == inf.id;
+        }).patients.push(pat);
+      }
+      ,
+      error => {
+        console.log("ERR-POST");
+      }
+    );
+  }
+
+  public changeAffectPatient(pat : PatientInterface, inf : InfirmierInterface){
+    this.desaffectPatient(pat);
+    this.affectPatient(inf, pat);
+  }
+
+
+
 
   ngOnInit() {
   }

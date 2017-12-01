@@ -4,7 +4,6 @@ import {Adresse} from "../dataInterfaces/adress";
 import {sexeEnum} from "../dataInterfaces/sexe";
 import {CabinetMedicalModuleService} from "../cabinet-medical.service"
 import {SecretaryComponent} from "../secretary/secretary.component"
-import {Http} from '@angular/http';
 
 @Component({
   selector: 'app-formulaire',
@@ -25,8 +24,6 @@ export class FormulaireComponent implements OnInit {
              rue : string,
              numéro : string,
              étage : string){
-
-     console.log("START");
 
 
      let adresse  : Adresse = {
@@ -56,26 +53,18 @@ export class FormulaireComponent implements OnInit {
       adresse: adresse,
     };
 
-    console.log(patient);
+    this.cab.newPatient(patient).subscribe(
+      response => {
+        this.secretary.addPatient(patient);
+      }
+      ,
+      error => {
+        console.log("ERR-POST");
+      }
+    );
 
-    console.log(this.secretary.addPatient(patient));
 
-    const res = this.cab.getHttp().post("/addPatient", {
-        patientName: patient.nom,
-        patientForname: patient.prénom,
-        patientNumber: patient.numéroSécuritéSociale,
-        patientSex: patient.sexe === sexeEnum.M ? "M" : "F",
-        patientBirthday: "AAAA-MM-JJ",
-        patientFloor: patient.adresse.étage,
-        patientStreetNumber: patient.adresse.numéro,
-        patientStreet: patient.adresse.rue,
-        patientPostalCode: patient.adresse.codePostal,
-        patientCity: patient.adresse.ville
-      });
-      res.subscribe();
-
-     console.log("END");
-    }
+   }
 
   ngOnInit() {
   }
