@@ -6,10 +6,8 @@
   right: 0;
 }
 
-
 agm-map {
-  height: 300px;
-  width: 300px;
+  height: 200px;
 }
 
 .list-app-secretary{
@@ -28,9 +26,7 @@ div.container
 div.container > div
 {
   flex: 1 1 5em;
- // margin-left: 10px;
-  //height:30px;
- //background-color: #0000cc;
+    height:200px;
 }
 
 div.container > div:first-child
@@ -46,4 +42,9 @@ div.container > div.one
 div.container > div.tow
 {
   flex:2 2 calc(15em + 20px); /** 20px is the missing margin of the two missing boxes */
+}
+
+div.container > div.tree
+{
+  flex:3 2 calc(15em + 20px); /** 20px is the missing margin of the two missing boxes */
 }

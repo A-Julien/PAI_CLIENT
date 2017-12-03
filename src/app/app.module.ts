@@ -32,7 +32,9 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material';
-
+import {MatRadioModule} from '@angular/material/radio';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { InfoInfComponent } from './info-inf/info-inf.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {MatInputModule} from '@angular/material';
     FormulaireComponent,
     NavBarComponent,
     NurseListComponent,
-    InfoPatComponent
+    InfoPatComponent,
+    InfoInfComponent
   ],
   imports: [
     BrowserModule,
@@ -67,6 +70,8 @@ import {MatInputModule} from '@angular/material';
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
+    MatRadioModule,
+    MatProgressBarModule,
     LoadingModule.forRoot({
       animationType: ANIMATION_TYPES.circleSwish,
       backdropBackgroundColour: 'rgba(0,0,0,0.1)',
@@ -83,12 +88,14 @@ import {MatInputModule} from '@angular/material';
 
   entryComponents:[
     InfoPatComponent,
-    FormulaireComponent
+    FormulaireComponent,
   ],
 
   providers: [
     CabinetMedicalModuleService,
-    SecretaryComponent
+    SecretaryComponent,
+    NurseListComponent,
+    InfoInfComponent
   ],
 
   bootstrap: [AppComponent]

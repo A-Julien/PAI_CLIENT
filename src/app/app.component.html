@@ -1,12 +1,15 @@
+
 <app-nav-bar></app-nav-bar>
 
-<div class="container">
-
-  <div class="one">
+<div class="container" >
+  <div>
     <app-secretary alx-dragdrop></app-secretary>
   </div>
+</div>
 
-  <div>
+<div class="container">
+  <div class="one"></div>
+  <div style="margin-top: 20px; margin-right: 20px">
     <agm-map [latitude]="getCabinetLat()" [longitude]="getCabinetLng()">
       <agm-marker [latitude]  = "getCabinetLat()"
                   [longitude] = "getCabinetLng()"
@@ -35,12 +38,10 @@
                   [label]     = "patient.nom">
       </agm-marker>
     </agm-map>
-
-  </div>
-
-</div>
-<div class="container">
-  <div class="one">
-
   </div>
 </div>
+
+
+<!--<div class="container" >
+  <div class="one">-->
+

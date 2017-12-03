@@ -41,7 +41,9 @@ export class FormulaireComponent implements OnInit {
 
     let sexeE : sexeEnum;
 
-    if(sexe == 'M'){
+    console.log("sexe : ");
+    console.log(sexe);
+    if(sexe == "1"){
       sexeE = sexeEnum.M;
     }else{
       sexeE = sexeEnum.F;

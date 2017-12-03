@@ -1,0 +1,18 @@
+<div class="container">
+  <div>
+    <div *ngIf="nurse.activeInf">
+      <img style="margin-top: 20px; margin-left: 5px" src="{{getImgSource()}}">
+    </div>
+  </div>
+  <div class="one">
+    <div *ngIf="nurse.activeInf">
+      <mat-card style="margin-top: 20px ; margin-right: 20px">
+        <mat-list>
+          <mat-list-item>{{getNum()}} {{getRue()}}</mat-list-item>
+          <mat-list-item>{{getVille()}} {{getCode()}}</mat-list-item>
+          <mat-list-item *ngIf="getEtage()"> Etage : {{getEtage()}}</mat-list-item>
+        </mat-list>
+      </mat-card>
+    </div>
+  </div>
+</div>

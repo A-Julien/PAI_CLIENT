@@ -3,7 +3,7 @@ import {SecretaryComponent} from "../secretary/secretary.component"
 import {PatientInterface} from "../dataInterfaces/patient";
 import {InfirmierInterface} from "../dataInterfaces/nurse";
 import {FormulaireComponent} from "../formulaire/formulaire.component";
-import {MatDialog} from "@angular/material";
+import {MatDialog, MatTabChangeEvent} from "@angular/material";
 import { CabinetMedicalModuleService } from "../cabinet-medical.service"
 
 @Component({
@@ -14,17 +14,21 @@ import { CabinetMedicalModuleService } from "../cabinet-medical.service"
 export class NurseListComponent implements OnInit {
 
 
+  public loading_add : boolean = false;
+  public activeInf : string = "001";
+  public nurse
+
 
   constructor(public Sec : SecretaryComponent,
               public dialog: MatDialog,
-              private cab : CabinetMedicalModuleService) { }
+              private cab : CabinetMedicalModuleService) {
+  }
 
   getInfirmiers(): InfirmierInterface[] {
     return this.Sec.getInfirmiers();
   }
 
   desaffectPatient (pat : PatientInterface){
-    console.log("coucou");
     this.Sec.desaffectPatient(pat);
   }
 
@@ -33,6 +37,8 @@ export class NurseListComponent implements OnInit {
   }
 
   onForm(){
+    this.loading_add = true;
+
     let dialogRef = this.dialog.open(FormulaireComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -40,14 +46,19 @@ export class NurseListComponent implements OnInit {
       this.cab.newPatient(result).subscribe(
         response => {
           this.Sec.addPatient(result);
-          }
+          this.loading_add = false;
+        }
         ,
         error => {
           console.log("ERR-POST");
         }
       );
-      //TODO Recup after clode le patient et le set ici
     });
+  }
+
+
+  public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+      this.activeInf  = tabChangeEvent.tab.textLabel;
   }
 
   ngOnInit() {

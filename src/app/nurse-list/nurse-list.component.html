@@ -1,57 +1,50 @@
-<!--<mat-accordion >
+<div class="container">
+  <div class="one">
+    <mat-tab-group dynamicHeight (selectedTabChange)="tabChanged($event)">
+      <div *ngFor="let inf of getInfirmiers()">
+        <mat-tab [label]="inf.id" >
+          <ng-template mat-tab-label>
+            <app-infirmier [data]="inf"></app-infirmier>
+          </ng-template>
+          <mat-list *ngFor="let pat of inf.patients">
+            <mat-list-item >
+              <mat-chip-list (click)="openDialog()">
+                <app-patient [data]="pat"></app-patient>
+              </mat-chip-list>
+            </mat-list-item>
+          </mat-list>
+        </mat-tab>
+      </div>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <div alx-dropzone (alx-ondrop)="desaffectPatient($event)"> PA-NaN </div>
+        </ng-template>
+        <button mat-raised-button
+                (click)="onForm()"
+                color="primary"
+                style="margin-left: 20px; margin-top: 10px">
+          Add Patient
+        </button>
 
-  <mat-expansion-panel *ngFor="let inf of getInfirmiers()">
+        <mat-list *ngFor="let patNA of getPatientsNonAffectes()"
+                  [alx-draggable]="patNA">
+          <mat-list-item>
+            <mat-chip-list>
+              <app-patient [data]="patNA"></app-patient><!-- <app-patient [data]="patNA"></app-patient>-->
+            </mat-chip-list>
+          </mat-list-item>
+        </mat-list>
+      </mat-tab>
 
-    <mat-expansion-panel-header>
+    </mat-tab-group>
+    <div *ngIf="loading_add">
+      <mat-spinner style="margin-left: 20px" ></mat-spinner>
+    </div>
+  </div>
+  <div>
+    <app-info-inf></app-info-inf>
+  </div>
+</div>
 
-      <mat-panel-title>
-        <app-infirmier [data]="inf"></app-infirmier>
-      </mat-panel-title>
 
-    </mat-expansion-panel-header>
 
-    <mat-list *ngFor="let pat of inf.patients">
-      <app-patient [data]="pat"></app-patient>
-    </mat-list>
-
-  </mat-expansion-panel>
-
-</mat-accordion>-->
-
-<mat-tab-group >
-
-  <mat-tab *ngFor="let inf of getInfirmiers()">
-    <ng-template mat-tab-label>
-      <app-infirmier [data]="inf"></app-infirmier>
-    </ng-template>
-    <mat-list *ngFor="let pat of inf.patients">
-      <mat-list-item >
-        <mat-chip-list (click)="openDialog()">
-            <app-patient [data]="pat"></app-patient>
-        </mat-chip-list>
-      </mat-list-item>
-    </mat-list>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label>
-      <div alx-dropzone (alx-ondrop)="desaffectPatient($event)"> PA-NaN </div>
-    </ng-template>
-    <button mat-raised-button
-            (click)="onForm()"
-            color="primary"
-            style="margin-left: 20px; margin-top: 10px">
-      Add Patient
-    </button>
-
-    <mat-list *ngFor="let patNA of getPatientsNonAffectes()"
-              [alx-draggable]="patNA">
-      <mat-list-item>
-        <mat-chip-list>
-         <app-patient [data]="patNA"></app-patient><!-- <app-patient [data]="patNA"></app-patient>-->
-        </mat-chip-list>
-      </mat-list-item>
-    </mat-list>
-  </mat-tab>
-
-</mat-tab-group>
