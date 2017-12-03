@@ -1,7 +1,7 @@
 <div alx-dropzone (alx-ondrop)="re_affectPat($event)">
   <p>{{getNom()}} {{getPrenom()}}</p>
 
-  <section *ngFor="let pat of getPatients()">
+  <!--<mat-list *ngFor="let pat of getPatients()">
     <app-patient [data]="pat"></app-patient>
-  </section>
+  </mat-list>-->
 </div>

@@ -1,6 +1,5 @@
 import { Input, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PatientInterface } from '../dataInterfaces/patient';
-import {DragDropModule} from "alx-dragdrop";
 
 
 @Component({

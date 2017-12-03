@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import {CabinetMedicalModuleService} from "../cabinet-medical.service"
 import {CabinetInterface} from "../dataInterfaces/cabinet";
 import {InfirmierInterface} from "../dataInterfaces/nurse";
 import {PatientInterface} from "../dataInterfaces/patient";
-
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {FormulaireComponent} from '../formulaire/formulaire.component'
+import {ANIMATION_TYPES} from "ngx-loading"
 
 
 
@@ -12,9 +13,12 @@ import {PatientInterface} from "../dataInterfaces/patient";
   selector: 'app-secretary',
   templateUrl: './secretary.component.html',
   styleUrls: ['./secretary.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class SecretaryComponent implements OnInit {
+
+  public loading = false;
+
   private cabinet : CabinetInterface = {
     infirmiers : [],
     patientsNonAffectés : [],
@@ -22,9 +26,11 @@ export class SecretaryComponent implements OnInit {
 
   };
 
-  constructor(private cab : CabinetMedicalModuleService, cabinetService : CabinetMedicalModuleService) {
+  constructor(private cab : CabinetMedicalModuleService,
+              cabinetService : CabinetMedicalModuleService) {
     cabinetService.getData("/data/cabinetInfirmier.xml").then(data => this.cabinet = data);
   }
+
 
   getInfirmiers(): InfirmierInterface[] {
     return this.cabinet.infirmiers;
@@ -44,12 +50,14 @@ export class SecretaryComponent implements OnInit {
 
   public desaffectPatient (pat : PatientInterface){
     console.log(pat);
+    this.loading = true;
     this.cab.deleteAffectPatient(pat).subscribe(
       response => {
         this.getInfirmiers().forEach( infirmier => {
           infirmier.patients.splice(infirmier.patients.indexOf(pat, 0), 1);
         });
         this.cabinet.patientsNonAffectés.push(pat);
+        this.loading = false;
       }
       ,
       error => {
@@ -59,6 +67,7 @@ export class SecretaryComponent implements OnInit {
   }
 
   public affectPatient(inf : InfirmierInterface, pat : PatientInterface){
+    this.loading = true;
     this.cab.injectPatient(inf, pat).subscribe(
       response => {
         if(this.cabinet.patientsNonAffectés.find( v =>{
@@ -76,6 +85,7 @@ export class SecretaryComponent implements OnInit {
           }
         });
         inf.patients.push(pat);
+        this.loading = false;
       }
       ,
       error => {

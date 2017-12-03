@@ -5,15 +5,17 @@ import {sexeEnum} from "../dataInterfaces/sexe";
 import {CabinetMedicalModuleService} from "../cabinet-medical.service"
 import {SecretaryComponent} from "../secretary/secretary.component"
 
+
 @Component({
   selector: 'app-formulaire',
   templateUrl: './formulaire.component.html',
   styleUrls: ['./formulaire.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class FormulaireComponent implements OnInit {
 
-  constructor(private cab : CabinetMedicalModuleService, private secretary : SecretaryComponent) { }
+  constructor(private cab : CabinetMedicalModuleService,
+              private secretary : SecretaryComponent) { }
 
    setPatient(nom : string,
              prénom : string,

@@ -18,6 +18,7 @@ export class CabinetMedicalModuleService {
   private Pgapi: Promise<any>; // Indique quand l’API est disponible
   private geocoder: google.maps.Geocoder;
   private cab : CabinetInterface;
+  public mapLoader : boolean = false;
 
   constructor(private http: Http, mapsAPILoader: MapsAPILoader) {
     this.Pgapi = mapsAPILoader.load().then(() => {
@@ -89,7 +90,6 @@ export class CabinetMedicalModuleService {
         });
         this.cab = cabinet;
         this.setCoordinate();
-
         return cabinet;
       }
       return null;
@@ -164,7 +164,6 @@ export class CabinetMedicalModuleService {
             const place = res[0].geometry.location;
             itemWithAdress.adresse.lat = place.lat();
             itemWithAdress.adresse.lng = place.lng();
-            console.log( itemWithAdress.adresse );
           }
           switch (status) {
             case google.maps.GeocoderStatus.OVER_QUERY_LIMIT:
@@ -192,6 +191,7 @@ export class CabinetMedicalModuleService {
     });
     return tab;
   }
+
 
   getLat()  {
     return this.cab  ?  this.cab.adresse.lat  :    0;

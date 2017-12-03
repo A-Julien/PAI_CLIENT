@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,ChangeDetectionStrategy } from '@angular/core';
 import {CabinetMedicalModuleService} from './cabinet-medical.service'
-import {FormBuilder,Validator } from '@angular/forms';
 import {InfirmierInterface} from "./dataInterfaces/nurse";
 import {PatientInterface} from "./dataInterfaces/patient";
 import 'hammerjs';
@@ -8,7 +7,8 @@ import 'hammerjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
 
@@ -17,6 +17,7 @@ export class AppComponent {
   //title: string = 'My first AGM project';
   lat: number = 51.678418;
   lng: number = 7.809007;
+  show : boolean = this.cab.mapLoader;
 
   constructor( private cab :  CabinetMedicalModuleService){}
 
