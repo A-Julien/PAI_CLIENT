@@ -1,53 +1,46 @@
-<!--The content below is only a placeholder and can be replaced.-->
-
 <app-nav-bar></app-nav-bar>
 
+<div class="container">
 
-<mat-grid-list cols="1" rowHeight="2:1">
-    <mat-grid-tile-header class="list-app-secretary">
-      <app-secretary alx-dragdrop></app-secretary>
-    </mat-grid-tile-header>
+  <div class="one">
+    <app-secretary alx-dragdrop></app-secretary>
+  </div>
 
-    <mat-grid-tile >
-      <!--<div *ngIf="show; then thenBlock"></div>
-      <ng-template #thenBlock>-->
-        <agm-map [latitude]="getCabinetLat()" [longitude]="getCabinetLng()"> <!--mapReady="mapReady($event)">-->
-          <agm-marker [latitude]  = "getCabinetLat()"
-                      [longitude] = "getCabinetLng()"
-                      iconUrl    = "/data/hospital-icon.png"
-          >
-          </agm-marker>
+  <div>
+    <agm-map [latitude]="getCabinetLat()" [longitude]="getCabinetLng()">
+      <agm-marker [latitude]  = "getCabinetLat()"
+                  [longitude] = "getCabinetLng()"
+                  iconUrl    = "/data/hospital-icon.png"
+      >
+      </agm-marker>
 
-          <agm-marker *ngFor      = "let nurse of getNurses()"
-                      [latitude]  = "nurse.adresse.lat"
-                      [longitude] = "nurse.adresse.lng"
-                      iconUrl    = "https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/48x48/shadow/nurse.png"
-          >
-          </agm-marker>
+      <agm-marker *ngFor      = "let nurse of getNurses()"
+                  [latitude]  = "nurse.adresse.lat"
+                  [longitude] = "nurse.adresse.lng"
+                  [label]     = "nurse.nom"
+                  iconUrl    = "https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/48x48/shadow/nurse.png"
+      >
+      </agm-marker>
 
-          <agm-marker *ngFor      = "let patient of getPatients_Na()"
-                      [latitude]  = "patient.adresse.lat"
-                      [longitude] = "patient.adresse.lng">
-          </agm-marker>
+      <agm-marker *ngFor      = "let patient of getPatients_Na()"
+                  [latitude]  = "patient.adresse.lat"
+                  [longitude] = "patient.adresse.lng"
+                  [label]     = "patient.nom"
+      >
+      </agm-marker>
 
-          <agm-marker *ngFor      = "let patient of getPatients()"
-                      [latitude]  = "patient.adresse.lat"
-                      [longitude] = "patient.adresse.lng">
-          </agm-marker>
-        </agm-map>
-      <!--</ng-template>-->
-   </mat-grid-tile>
+      <agm-marker *ngFor      = "let patient of getPatients()"
+                  [latitude]  = "patient.adresse.lat"
+                  [longitude] = "patient.adresse.lng"
+                  [label]     = "patient.nom">
+      </agm-marker>
+    </agm-map>
 
-</mat-grid-list>
-<!--</ng-template>-->
+  </div>
 
+</div>
+<div class="container">
+  <div class="one">
 
-
-
-
-
-
-
-
-
-
+  </div>
+</div>

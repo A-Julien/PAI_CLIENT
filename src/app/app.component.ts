@@ -2,7 +2,9 @@ import { Component,ChangeDetectionStrategy } from '@angular/core';
 import {CabinetMedicalModuleService} from './cabinet-medical.service'
 import {InfirmierInterface} from "./dataInterfaces/nurse";
 import {PatientInterface} from "./dataInterfaces/patient";
-import 'hammerjs';
+import { MatDialog } from '@angular/material';
+import {InfoPatComponent} from "./info-pat/info-pat.component";
+import { FormulaireComponent } from "./formulaire/formulaire.component"
 
 @Component({
   selector: 'app-root',
@@ -40,5 +42,7 @@ export class AppComponent {
   getPatients() : PatientInterface[]{
     return this.cab.getPat();
   }
+
+
 
 }

@@ -1,6 +1,13 @@
 <!--<mat-card [alx-draggable] = "getPatient()" >
   {{getNom()}} {{getPrenom()}}
 </mat-card>-->
-<mat-chip [alx-draggable] = "getPatient()" >
+
+<mat-chip [alx-draggable] = "getPatient()"
+          matTooltip="{{getNss()}}"
+          matTooltipPosition="right"
+          matTooltipShowDelay="1"
+          matTooltipHideDelay="1"
+          (click)="openDialog()">
+
   {{getNom()}} {{getPrenom()}}
 </mat-chip>

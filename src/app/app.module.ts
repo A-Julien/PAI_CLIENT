@@ -25,6 +25,13 @@ import {MatListModule} from '@angular/material/list';
 import { NurseListComponent } from './nurse-list/nurse-list.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { InfoPatComponent } from './info-pat/info-pat.component';
+import {MatCardModule} from '@angular/material/card';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material';
 
 
 @NgModule({
@@ -35,7 +42,8 @@ import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
     PatientComponent,
     FormulaireComponent,
     NavBarComponent,
-    NurseListComponent
+    NurseListComponent,
+    InfoPatComponent
   ],
   imports: [
     BrowserModule,
@@ -53,22 +61,35 @@ import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
     MatExpansionModule,
     MatListModule,
     MatTabsModule,
+    MatTooltipModule,
+    MatCardModule,
+    FlexLayoutModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
     LoadingModule.forRoot({
       animationType: ANIMATION_TYPES.circleSwish,
       backdropBackgroundColour: 'rgba(0,0,0,0.1)',
       backdropBorderRadius: '41px',
       primaryColour: '#ff1771',
       secondaryColour: '#ff1771',
-      tertiaryColour: '#ff1771'
+      tertiaryColour: '#ff1771',
+      fullScreenBackdrop: true
     }),
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyD_w1r_07SqTtAphUmK3igqBLjirGtJF24"
     })
   ],
 
-  entryComponents:[FormulaireComponent],
+  entryComponents:[
+    InfoPatComponent,
+    FormulaireComponent
+  ],
 
-  providers: [CabinetMedicalModuleService],
+  providers: [
+    CabinetMedicalModuleService,
+    SecretaryComponent
+  ],
 
   bootstrap: [AppComponent]
 })

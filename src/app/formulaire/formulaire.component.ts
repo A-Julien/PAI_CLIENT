@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {PatientInterface} from "../dataInterfaces/patient";
 import {Adresse} from "../dataInterfaces/adress";
 import {sexeEnum} from "../dataInterfaces/sexe";
 import {CabinetMedicalModuleService} from "../cabinet-medical.service"
 import {SecretaryComponent} from "../secretary/secretary.component"
-
+import {MatDialogRef} from "@angular/material";
 
 @Component({
   selector: 'app-formulaire',
@@ -15,7 +15,8 @@ import {SecretaryComponent} from "../secretary/secretary.component"
 export class FormulaireComponent implements OnInit {
 
   constructor(private cab : CabinetMedicalModuleService,
-              private secretary : SecretaryComponent) { }
+              private secretary : SecretaryComponent,
+              public dialogRef: MatDialogRef<FormulaireComponent>) { }
 
    setPatient(nom : string,
              prénom : string,
@@ -51,21 +52,12 @@ export class FormulaireComponent implements OnInit {
       nom : nom,
       prénom : prénom,
       sexe: sexeE,
+      date : null,
       numéroSécuritéSociale: nss,
       adresse: adresse,
     };
 
-    this.cab.newPatient(patient).subscribe(
-      response => {
-        this.secretary.addPatient(patient);
-      }
-      ,
-      error => {
-        console.log("ERR-POST");
-      }
-    );
-
-
+    this.dialogRef.close(patient);
    }
 
   ngOnInit() {

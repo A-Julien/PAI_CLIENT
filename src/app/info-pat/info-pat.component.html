@@ -1,0 +1,30 @@
+<h1 mat-dialog-title style="text-decoration: underline">{{getNom()}} {{getPrenom()}}</h1>
+<div mat-dialog-content>
+  <mat-list>
+    <mat-list-item class="list-item">
+      Sexe : {{getSexe()}}
+    </mat-list-item>
+    <mat-list-item class="list-item">
+      Date de naissance : {{getDate()}}
+    </mat-list-item>
+    <mat-list-item class="list-item">
+      Nss : {{getNss()}}
+    </mat-list-item>
+    <mat-accordion class="list-item">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Adresse
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+            <mat-list>
+              <mat-list-item>{{getNum()}} Rue  : {{getRue()}}</mat-list-item>
+              <mat-list-item>Ville : {{getVille()}}</mat-list-item>
+              <mat-list-item>Code Postal : {{getCode()}}</mat-list-item>
+              <mat-list-item *ngIf="getEtage()"> Etage : {{getEtage()}}</mat-list-item>
+            </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+  </mat-list>
+</div>

@@ -60,7 +60,8 @@ export class CabinetMedicalModuleService {
           return{
             prénom : patientsXML.querySelector("prénom").textContent,
             nom : patientsXML.querySelector("nom").textContent,
-            sexe : null,
+            sexe : patientsXML.querySelector("sexe").textContent=="M" ? sexeEnum.M : sexeEnum.F,
+            date : patientsXML.querySelector("naissance").textContent,
             numéroSécuritéSociale : patientsXML.querySelector("numéro").textContent,
             adresse : this.getAdressFrom(patientsXML.querySelector("adresse"))
           }

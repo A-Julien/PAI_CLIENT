@@ -1,6 +1,99 @@
-<div>
-  <h1>Create patients</h1><br/>
+<h1 mat-dialog-title style="text-decoration: underline">Create patients</h1>
 
+<mat-horizontal-stepper>
+
+  <mat-step >
+    <form>
+      <ng-template matStepLabel>Name</ng-template>
+      <mat-form-field >
+        <input matInput placeholder="Last name" type="text" #name required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="First name" type="text" #prenom required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext type="button" >Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step >
+    <form>
+      <ng-template matStepLabel>Sexe</ng-template>
+      <mat-form-field >
+        <input matInput placeholder="Last name" type="text" #sexe required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step >
+    <form>
+      <ng-template matStepLabel>Nss</ng-template>
+      <mat-form-field >
+        <input matInput placeholder="Security Number" type="text" #nss required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step >
+    <form>
+      <ng-template matStepLabel>Adresse</ng-template>
+      <mat-form-field >
+        <input matInput placeholder="numéro" type="text" #numero required>
+      </mat-form-field>
+      <mat-form-field >
+        <input matInput placeholder="rue" type="text" #rue required>
+      </mat-form-field>
+      <br/>
+      <mat-form-field >
+        <input matInput placeholder="Ville" type="text" #ville required>
+      </mat-form-field>
+      <mat-form-field >
+        <input matInput placeholder="Code postal" type="text" #codePostal required>
+      </mat-form-field>
+      <br/>
+      <mat-form-field >
+        <input matInput placeholder="étage" type="text" #etage required>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperNext type="button" >Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button
+              type="button"
+              name="bouton"
+              (click)="setPatient(name.value,
+                                  prenom.value,
+                                  sexe.value,
+                                  nss.value,
+                                  ville.value,
+                                  codePostal.value,
+                                  rue.value,
+                                  numero.value,
+                                  etage.value )">
+        VALIDER
+
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+
+<!--<div mat-dialog-content>
   <span class="input"></span>
   <input type="text" name="name" placeholder="Full name" #name/>
 
@@ -31,4 +124,4 @@
   </div>
 
   <button type="button" name="bouton" (click)="setPatient(name.value, prenom.value, sexe.value, nss.value, ville.value, codePostal.value, rue.value, numero.value, etage.value )">VALIDER</button>
-</div>
+</div>-->

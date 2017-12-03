@@ -3,9 +3,6 @@ import {CabinetMedicalModuleService} from "../cabinet-medical.service"
 import {CabinetInterface} from "../dataInterfaces/cabinet";
 import {InfirmierInterface} from "../dataInterfaces/nurse";
 import {PatientInterface} from "../dataInterfaces/patient";
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {FormulaireComponent} from '../formulaire/formulaire.component'
-import {ANIMATION_TYPES} from "ngx-loading"
 
 
 
@@ -45,6 +42,7 @@ export class SecretaryComponent implements OnInit {
       return value.numéroSécuritéSociale == pat.numéroSécuritéSociale;
     })){return false}
     this.cabinet.patientsNonAffectés.push(pat);
+    console.log(this.cabinet.patientsNonAffectés);
     return true;
   }
 
@@ -93,6 +91,9 @@ export class SecretaryComponent implements OnInit {
       }
     );
   }
+
+
+
 
   ngOnInit() {
   }

@@ -19,7 +19,31 @@ agm-map {
   //background-color: #0000fe;
 }
 
-/*mat-grid-tile  {
-  position: absolute;
-  background: lightblue;
-}*/
+div.container
+{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+div.container > div
+{
+  flex: 1 1 5em;
+ // margin-left: 10px;
+  //height:30px;
+ //background-color: #0000cc;
+}
+
+div.container > div:first-child
+{
+  margin-left: 0;
+}
+
+div.container > div.one
+{
+  flex:2 2 calc(10em + 10px); /** 10px is the missing margin of the missing box */
+}
+
+div.container > div.tow
+{
+  flex:2 2 calc(15em + 20px); /** 20px is the missing margin of the two missing boxes */
+}
