@@ -1,5 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
+import { CabinetMedicalModuleService } from "../cabinet-medical.service"
+import {CabinetInterface} from "../dataInterfaces/cabinet";
+import { PatientInterface } from "../dataInterfaces/patient"
 
 @Component({
   selector: 'app-info-pat',
@@ -9,7 +12,14 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 export class InfoPatComponent implements OnInit {
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private cab : CabinetMedicalModuleService) {}
+
+  getCoo(){
+    let tab : PatientInterface[] = [] ;
+    tab.push(this.data);
+    this.cab.getLatLngFor(tab);
+  }
 
   getNom():string{
     return this.data.nom.toString();

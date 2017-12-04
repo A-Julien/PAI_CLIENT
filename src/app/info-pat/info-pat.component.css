@@ -1,3 +1,6 @@
 .list-item{
   font-weight: bold;
 }
+agm-map {
+  height: 80px;
+}

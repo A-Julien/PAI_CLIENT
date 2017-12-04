@@ -1,4 +1,4 @@
-import { Component,ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {CabinetMedicalModuleService} from './cabinet-medical.service'
 import {InfirmierInterface} from "./dataInterfaces/nurse";
 import {PatientInterface} from "./dataInterfaces/patient";

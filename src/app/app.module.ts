@@ -35,6 +35,7 @@ import {MatInputModule} from '@angular/material';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { InfoInfComponent } from './info-inf/info-inf.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { InfoInfComponent } from './info-inf/info-inf.component';
     NavBarComponent,
     NurseListComponent,
     InfoPatComponent,
-    InfoInfComponent
+    InfoInfComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

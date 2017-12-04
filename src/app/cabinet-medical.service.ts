@@ -152,7 +152,7 @@ export class CabinetMedicalModuleService {
   }
 
   /** GOOGLE MAP **/
-  private getLatLngFor( adressables : {adresse: Adresse}[] ) {
+  public getLatLngFor( adressables : {adresse: Adresse}[] ) {
     adressables = adressables.slice(); // Copie pour éviter problèmes récursions
     this.Pgapi.then( () => {
       if (adressables.length) {
@@ -178,6 +178,7 @@ export class CabinetMedicalModuleService {
       }
     });
   }
+
 
   /*public getLat() : number {
     return this.cab.adresse.lat;
@@ -210,7 +211,6 @@ export class CabinetMedicalModuleService {
   }
 
   getPat() : PatientInterface[]{
-
     return this.cab ? this.getAllPatLinkToInf() : [];
   }
 }

@@ -17,6 +17,12 @@
             Adresse
           </mat-panel-title>
         </mat-expansion-panel-header>
+        <agm-map [latitude]="this.data.adrr.lat" [longitude]="this.data.adrr.lng">
+          <agm-marker [latitude]  = "this.data.adrr.lat"
+                      [longitude] = "this.data.adrr.lng"
+          >
+          </agm-marker>
+        </agm-map>
             <mat-list>
               <mat-list-item>{{getNum()}} Rue  : {{getRue()}}</mat-list-item>
               <mat-list-item>Ville : {{getVille()}}</mat-list-item>

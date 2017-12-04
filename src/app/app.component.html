@@ -10,38 +10,8 @@
 <div class="container">
   <div class="one"></div>
   <div style="margin-top: 20px; margin-right: 20px">
-    <agm-map [latitude]="getCabinetLat()" [longitude]="getCabinetLng()">
-      <agm-marker [latitude]  = "getCabinetLat()"
-                  [longitude] = "getCabinetLng()"
-                  iconUrl    = "/data/hospital-icon.png"
-      >
-      </agm-marker>
-
-      <agm-marker *ngFor      = "let nurse of getNurses()"
-                  [latitude]  = "nurse.adresse.lat"
-                  [longitude] = "nurse.adresse.lng"
-                  [label]     = "nurse.nom"
-                  iconUrl    = "https://d1nhio0ox7pgb.cloudfront.net/_img/v_collection_png/48x48/shadow/nurse.png"
-      >
-      </agm-marker>
-
-      <agm-marker *ngFor      = "let patient of getPatients_Na()"
-                  [latitude]  = "patient.adresse.lat"
-                  [longitude] = "patient.adresse.lng"
-                  [label]     = "patient.nom"
-      >
-      </agm-marker>
-
-      <agm-marker *ngFor      = "let patient of getPatients()"
-                  [latitude]  = "patient.adresse.lat"
-                  [longitude] = "patient.adresse.lng"
-                  [label]     = "patient.nom">
-      </agm-marker>
-    </agm-map>
+    <app-map></app-map>
   </div>
 </div>
 
-
-<!--<div class="container" >
-  <div class="one">-->
 
